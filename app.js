@@ -12,8 +12,8 @@ app.on('window-all-closed', function() {
 })
 
 app.on('ready', function () {
-    mainWindow = new BrowserWindow({ width: 1030, height: 720,  show: false, center: true })
-    mainWindow.openDevTools();
+    mainWindow = new BrowserWindow({ width: 1030, height: 720,frame:false, show: false, center: true })
+   // mainWindow.openDevTools();
     mainWindow.loadUrl('file://' + require('path').join(__dirname, 'ui.html'))
     var webContents = mainWindow.webContents;
 
