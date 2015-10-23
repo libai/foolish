@@ -1,0 +1,29 @@
+.window{  border: 1px solid rgba(10, 51, 38, 0.47);margin:0 0;font-family: "Microsoft YaHei" ! important; overflow: hidden;}
+.window-min,.window-max,.window-close{
+   padding: 5px 10px 5px 5px;
+   color:#333333;
+   margin-left:5px
+}
+.window-min {
+    padding: 10px 10px 0px 5px;
+}
+.window-min:hover,.window-max:hover{
+    background-color: rgba(18, 37, 51, 0.12);
+}
+.window-close:hover{
+    background-color: #b9554c;
+    color:#fff;
+}
+.hidden {
+    display: none !important;
+}
+.window-titlebar{
+    display: flex;
+    flex-direction: row;
+}
+.window-titlebar .chrome-tabs-shell{
+    flex:1
+}
+.window-titlebar .window-control{
+  width:118px
+}

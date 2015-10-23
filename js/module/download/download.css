@@ -1,0 +1,23 @@
+.download-item{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap
+}
+.download-item .icon{
+    width:20px;
+    padding: 15 10 0 0;
+}
+.download-item .icon i{
+    font-size: 25;
+    font-weight: bold;
+}
+.download-item .info{
+    width:100%
+}
+.download-item .operate{
+    width:40px;
+    padding: 15 10 0 0;
+}
+.download-item .operate i{
+    font-size: 20;
+}

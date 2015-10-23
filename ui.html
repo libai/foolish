@@ -1,0 +1,91 @@
+<html><head>
+    <meta charset="utf-8">
+    <title>浏览器</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="css/browse-window.css">
+    <link rel="stylesheet" href="css/chrome-tabs.css">
+    <link rel="stylesheet" href="css/browser-navbar.css">
+    <link rel="stylesheet" href="css/browser-page.css">
+    <link rel="stylesheet" href="iconfont/iconfont.css">
+    <link rel="stylesheet" href="css/chrome-bootstrap.css">
+
+</head>
+<body class="window">
+    <div class="window-titlebar">
+        <div class="chrome-tabs-shell">
+            <div class="chrome-tabs ui-sortable">
+
+             </div>
+             <div  class="chrome-new-tab">
+                   <i class="iconfont icon-add"></i>
+             </div>
+        </div>
+        <div class="window-control">
+             <a class="window-min"><i class="iconfont icon-min"></i></a>
+             <a class="window-max"><i class="iconfont icon-iconmax"></i></a>
+             <a class="window-close" ><i class="iconfont icon-close"></i></a>
+        </div>
+    </div>
+
+    <div id="browser-navbar">
+        <a  class="disabled" title="后退" >
+            <i class="iconfont icon-arrowback navbtn"></i>
+        </a>
+        <a class="disabled" title="前进" >
+            <i class="iconfont icon-arrowforward navbtn" ></i></a>
+        <a  class="" title="重新加载">
+            <i class="iconfont icon-refresh navbtn" ></i></a>
+
+        <div class="input-group">
+            <span class="input-group-addon"><i class="iconfont icon-hulianwang"></i></span>
+            <input class="form-control"  id="location" type="text" value="" >
+             <span class="input-group-addon">
+                <i class="iconfont icon-erweima"></i> |
+                <i class="iconfont icon-star"></i>
+
+           </span>
+
+        </div>
+        <a class="" title="下载" id="browse-download"><i class="iconfont icon-filedownload navbtn"></i></a>
+
+
+        <a class="" title="菜单" id="browse-tool"><i class="iconfont icon-menu navbtn"></i></a>
+
+    </div>
+    <div class="chrome-history" >
+        <ul>
+            <li>
+                12321
+
+            </li>
+        </ul>
+    </div>
+    <div class="chrome-shell-bottom-bar"> </div>
+    <!--
+    <div id="browser-page" class="visible">
+        <div id="browser-page-search" class="hidden">
+            <input type="text" placeholder="Search...">
+        </div>
+        <webview preload="./preload/main.js"  tabindex="-1" src="http://www.2345.com/?k40309393"></webview>
+        <div id="browser-page-status" class="hidden"></div>
+    </div>
+    -->
+</div>
+<div class="chrome-bootstrap">
+
+</div>
+<script src="js/sprint.min.js"></script>
+<script src="js/Emtter.js"></script>
+<script src="js/browse-tab.js"></script>
+<script src="js/browse-navbar.js"></script>
+<script src="js/browse-page.js"></script>
+<script src="js/browse-module.js"></script>
+<script src="js/browse.js"></script>
+<script src="js/remote.js"></script>
+<script>
+
+
+</script>
+
+</body></html>
