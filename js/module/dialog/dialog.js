@@ -47,7 +47,12 @@
            if($(".chrome-bootstrap").length == 0){
                $("body").append('<div class="chrome-bootstrap"></div>');
            }
-           if(option.multi == false) $(".chrome-bootstrap").empty()
+           if(option.multi == false){
+               $(".chrome-bootstrap").empty()
+               browseEvent.emit("browse.dialog.closeAll");
+
+               browseEvent.emit("browse.download.dialog.close");
+           }
            $(".chrome-bootstrap").append(template);
        },
        hide:function(id){

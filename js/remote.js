@@ -14,7 +14,7 @@ var downloadManage = remote.require("./app/downloadManage")
     })
     function updateDownloadDialog(){
         var queue = downloadManage.getQueue(5);
-        console.log(queue);
+       // console.log(queue);
         browseModule.download.updateDialog(queue);
         if(updateLoop){
             setTimeout(function(){
@@ -22,8 +22,19 @@ var downloadManage = remote.require("./app/downloadManage")
             }, 1000);
         }
     }
-    browseEvent.on("browse.download.dialog.close", function(){
+    browseEvent.on("browse.download.dialog.close browse.dialog.closeAll", function(){
         updateLoop = false;
+    })
+
+
+
+    browseEvent.on("browse.play.dialog.open", function(cid){
+        var playUrl = downloadManage.getPlayUrl(cid);
+
+        browseModule.load("player", true, function(){
+            browseModule.player.playerDialog(playUrl)
+        });
+        console.log(playUrl)
     })
     /*
     ipc.on("download.hasDownloaded", function(cid){

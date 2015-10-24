@@ -6,7 +6,12 @@
   "author": "Connor Sears",
   "dependencies": {
     "webtorrent":"*",
-    "locallydb":"*"
+    "locallydb":"*",
+    "lokijs":"*",
+	"pump": "^1.0.0",
+    "range-parser": "^1.0.2",
+	"debug":"^2.1.0",
+    "mime":"*"
   },
   "scripts": {
     "start": "electron ."

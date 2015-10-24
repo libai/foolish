@@ -33,7 +33,7 @@
         },
         //初始化加载模块后自动执行
         init:function(){
-            console.log("模块初始化完毕");
+            //console.log("模块初始化完毕");
         },
         toggleDialog:function(){
             if($("#download-panel").length > 0){
@@ -54,7 +54,7 @@
             }
         },
         updateDialog:function(queue){
-
+            var self = this
             for(var i in queue){
                 var downloadItem = queue[i];
 
@@ -88,7 +88,15 @@
                         '</div>'+
                         '<div class="operate"><i class="iconfont icon-close"></i><i class="iconfont icon-arrow-right-solid play"></i></div>'+
                         '</div>';
-                    $(".content-area").append(template);
+                    $("#download-panel .content-area").append(template);
+                    $("#download-item-"+downloadItem.$cid+" .icon-arrow-right-solid").on("click", function(){
+
+                       // self.toggleDialog();
+                       // browseEvent.emit("browse.download.dialog.close");
+                        var cid = parseInt($(this).closest(".download-item").attr("id").replace("download-item-", ""));
+
+                        browseEvent.emit("browse.play.dialog.open", cid);
+                    });
 
                     /*
                     <div class="htmleaf-content">

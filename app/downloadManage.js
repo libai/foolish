@@ -1,5 +1,6 @@
 var locallydb = require('locallydb');
 var fs = require('fs')
+var torrentDownload = require('./torrentDownload');
 
 var db = new locallydb('./temp'),
 collection = db.collection('downloadManage');
@@ -16,6 +17,7 @@ module.exports = {
 
     //浏览器下载委托
     delegate:function(event, item, webContents){
+
         var self = this;
         var saveFile = this.getSaveFileName(downloadPath+item.getFilename());
         item.setSavePath(saveFile);
@@ -26,12 +28,8 @@ module.exports = {
         //console.log(collection.get(0));
         /* //todo已下载任务处理*/
         /*if(result.length){
-
             this.downloadStart(item);
-
         }else{*/
-
-
             //存入数据库
             var row = {
                   url:url,
@@ -43,13 +41,14 @@ module.exports = {
                   status:'downloading',
                   savepath:saveFile
              };
+            console.log(row);
             //存入数据库
             var res = collection.insert(row);
 
-            console.log(res);
             //放入队列
-            row.$cid = res.$cid;      //唯一id号
+            row.$cid = res;      //唯一id号
             row.item = item;
+            row.downloadType = 'http';
             queue.push(row);
             //处理速度
 
@@ -83,19 +82,23 @@ module.exports = {
         item.on('updated', function () {
 
            // console.log(self.queue[item.getUrl()]);
-            //console.log("Received:"+ item.getReceivedBytes())
+            console.log("Received:"+ item.getReceivedBytes())
             //queue[item.getUrl()].downloaded =  item.getReceivedBytes();
         });
         item.on('done', function (e, state) {
 
-            var task = this.getQueueByUrl(item.getUrl());
+            var task = self.getQueueByUrl(item.getUrl());
             if (state == "completed") {
-                //删除下载队列
-                //delete self.queue[item.getUrl()];
-                //修改下载状态
                 task.status = 'completed'
-                //触发下载成功事件
-                console.log("Download successfully");
+                var totalSize = item.getTotalBytes();
+                //小于300kb尝试bt下载
+                if(totalSize < 300*1024){
+                    torrentDownload.torrentAdd(item.getUrl(), downloadPath+item.getFilename(), downloadPath, function(torrentItem){
+                        task.status = 'downloading'
+                        task.downloadType = 'bt';
+                        task.item = torrentItem;
+                    });
+                }
             } else {
                 //修改数据库
                 task.status = 'error'
@@ -126,10 +129,36 @@ module.exports = {
              if(end<0)end=0;
          }
         for(var i= queue.length-1; i>=end; i--){
-            queue[i].downloaded = queue[i].item.getReceivedBytes();
-            retval.push(queue[i]);
+
+            var queueItem = queue[i].item;
+            retval.push({
+                $cid:queue[i].$cid,
+                total:queueItem.getTotalBytes(),
+                downloaded:queueItem.getReceivedBytes(),
+                name:queueItem.getFilename(),
+                type:queueItem.getMimeType(),
+                downloadType:queue[i].downloadType
+            });
         }
         return retval;
+    },
+
+    getPlayUrl:function($cid){
+        for(var i in queue){
+            var row = queue[i]
+            if(row.$cid == $cid){
+                if(row.downloadType == 'http'){
+                    if(row.status == 'downloading'){
+                        return row.item.getUrl();
+                    }else{
+                        return downloadPath+row.item.getFileName
+                    }
+
+                }else{
+                   return  row.item.getPlayUrl();
+                }
+            }
+        }
     },
     getQueueByUrl:function(url){
         for(var i in queue){
@@ -137,25 +166,8 @@ module.exports = {
             return queue[i]
         }
         return false;
-    },
-    //更新速度
-    speedLoop:function(timeout){
-        var self = this
-
-        for(var i in queue){
-            if(queue[i].status == 'downloading'){
-                var downloaded = queue[i].item.getReceivedBytes();
-                queue[i].speed = downloaded - queue[i].downloaded;
-                console.log("speed:"+ queue[i].speed);
-                queue[i].downloaded = downloaded;
-            }
-        }
-        if(loopStatus == true){
-            setTimeout(function(){
-                self.speedLoop(timeout);
-            },timeout)
-        }
     }
+
 }
 
 

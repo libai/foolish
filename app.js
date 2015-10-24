@@ -12,8 +12,10 @@ app.on('window-all-closed', function() {
 })
 
 app.on('ready', function () {
-    mainWindow = new BrowserWindow({ width: 1030, height: 720,frame:false, show: false, center: true })
-   // mainWindow.openDevTools();
+    mainWindow = new BrowserWindow({ width: 1030, height: 720,
+        //frame:false,
+        show: false, center: true })
+    mainWindow.openDevTools();
     mainWindow.loadUrl('file://' + require('path').join(__dirname, 'ui.html'))
     var webContents = mainWindow.webContents;
 
@@ -26,7 +28,7 @@ app.on('ready', function () {
         //委托给downloadmanage管理
         console.log("direct delegate");
 
-        download.delegate(event,item,webContents)
+        download.delegate(event, item, webContents)
     });
 
     /*
