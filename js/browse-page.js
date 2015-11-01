@@ -17,6 +17,13 @@
                 '</div>';
             $(template).insertAfter($(".chrome-shell-bottom-bar"));
             currentId = id;
+            //console.log($("#browser-page-"+currentId).find("webview").get(0))
+            //console.log($("#browser-page-"+currentId).find("webview")[0])
+            $("#browser-page-"+currentId).find("webview").get(0).addEventListener("dom-ready", function() {
+                this.openDevTools();
+                var code = 'var tags = document.querySelector("foolish");console.log(tags);'
+                this.executeJavaScript(code)
+            });
             browseEvent.emit("page.add", id);
         },
         close:function(id){

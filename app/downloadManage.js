@@ -142,7 +142,11 @@ module.exports = {
         }
         return retval;
     },
-
+    playTorrent:function(url, callback){
+        torrentDownload.torrentAdd(url, null, downloadPath, function(torrentItem){
+            callback(torrentItem)
+        });
+    },
     getPlayUrl:function($cid){
         for(var i in queue){
             var row = queue[i]

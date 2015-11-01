@@ -8,8 +8,7 @@
 
     browseTabs.init($(".chrome-tabs-shell"));
     browseEvent.on("tab.add", function(id){
-        console.log("add");
-        var defaultUrl = "http://www.baidu.com";
+        var defaultUrl = "http://foolishtest.sinaapp.com/playerTest.html";
         browsePage.add(id, defaultUrl)
         browseNavbar.setLocation(defaultUrl);
     });

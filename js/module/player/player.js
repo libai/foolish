@@ -9,8 +9,8 @@
                     id:"player-panel",
                     left:200,
                     top:200,
-                    width:400,
-                    height:300
+                    width:500,
+                    height:400
                 };
                 browseModule.dialog.show(opt)
                 console.log("player pannel show")
